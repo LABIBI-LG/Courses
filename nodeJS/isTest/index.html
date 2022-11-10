@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <input type="text" id="input">
+    <button id="save">儲存</button>
+
+    <ul id="list">
+    </ul>
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+    <script type="module">
+        const config = {
+            apiKey: "AIzaSyAtJ0vxhM7tdTWjvD6o6GNoI9ctECPHkq8",
+            authDomain: "istest-ab751.firebaseapp.com",
+            projectId: "istest-ab751",
+            storageBucket: "istest-ab751.appspot.com",
+            messagingSenderId: "832157429847",
+            appId: "1:832157429847:web:0a71bf50fbf97b8d08b312",
+            measurementId: "G-E443WQ5PZ2"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(config);
+        
+        // dom
+        var todoList = firebase.database().ref('todoList');
+        var input = document.getElementById('input');
+        var save = document.getElementById('save');
+        var list = document.getElementById('list');
+
+        // 儲存寫入資料庫
+        save.addEventListener('click', function(){
+            todoList.push(
+                {
+                    item: input.value
+                }
+            );
+        });
+        // 顯示資料庫資料
+        todoList.on('value', function(snapshot){
+            let snapshotVal = snapshot.val();
+            let str = '';
+            for(let i in snapshotVal){
+                str += `<li>
+                            <span>${ snapshotVal[i].item }</span>
+                            <input style="display:none;" type="text" data-key="${i}" value="${ snapshotVal[i].item }">
+                            <button data-key="${i}">刪除</button>
+                        </li>`;
+            }
+            list.innerHTML = str;
+            input.value = '';
+            
+            list.addEventListener('click', function(e){
+                // 刪除項目
+                if(e.target.nodeName == 'BUTTON'){
+                    let key = e.target.dataset.key;
+                    todoList.child(`${ key }`).remove();
+                }
+                // 顯示修改項目
+                if(e.target.nodeName == 'SPAN'){
+                    e.target.style.display = 'none';
+                    e.target.nextElementSibling.style.display = 'inline';
+                }
+                // 將修改項目輸入回資料庫
+                if(e.target.nodeName == 'INPUT'){
+                    e.target.addEventListener('keyup',function(e2){
+                        if (e2.keyCode === 13) {
+                            let key = e.target.dataset.key;
+                            todoList.child(`${ key }`).set({
+                                item: e2.target.value
+                            })
+                        }
+                    });
+                }
+
+            });
+        })
+
+        
+    </script>
+</body>
+
+</html>
