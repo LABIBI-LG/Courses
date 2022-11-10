@@ -34,7 +34,40 @@
 
         // Initialize Firebase
         firebase.initializeApp(config);
-        
+        var people = {
+        "mike": {
+          "height" : 4,
+          "length" : 12.5,
+          "weight": 5000
+        },
+        "casper": {
+          "height" : 3,
+          "length" : 9,
+          "weight" : 2500
+        },
+        "bob": {
+          "height": "dalse",
+          "length" : false,
+          "weight" : 2500
+        },
+        "john": {
+          "height" : true,
+          "length" : 9,
+          "weight" : 2500
+        }
+        ,
+        "josh": {
+          "height" : false,
+          "length" : 9,
+          "weight" : 2500
+        },
+        'boss':{
+          "length": 3
+        },
+        'frank':{
+          height:{'aaa':1}
+        }
+      };
         // dom
         var todoList = firebase.database().ref('todoList');
         var input = document.getElementById('input');
