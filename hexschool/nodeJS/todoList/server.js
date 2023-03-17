@@ -1,5 +1,6 @@
 const http = require('http');
 const { v4: uuidv4 } = require('uuid');
+const errorHandle = require('./errorHandle');
 const todos = [
     {
         "title": "今天要學習",
@@ -13,65 +14,66 @@ const requsetListener = (req, res) => {
         'Access-Control-Allow-Methods': 'PATCH, POST, GET,OPTIONS,DELETE',
         'Content-Type': 'application/json'
     }
-    if(req.url === '/todos'){
-        switch(req.method){
+
+    let body = '';
+    req.on('data', chunk => {
+        body += chunk;
+    })
+    console.log(req.url);
+    if (req.url === '/todos') {
+        switch (req.method) {
             case 'OPTIONS':
                 res.writeHead(200, headers);
                 res.end();
                 break;
             case 'GET':
-                resFun(res,headers);
+                resFun(res, headers, 200);
                 break;
             case 'POST':
-                req.on('end',()=>{
-                    const title = JSON.parse(body);
-                    console.log(title);
+                req.on('end', () => {
+                    try {
+                        todos.push({
+                            "title": JSON.parse(body).title,
+                            "id": uuidv4()
+                        });
+                        resFun(res, headers, 200);
+                    } catch (error) {
+                        errorHandle(res);
+                    }
+
                 })
-                
-                // resFun(res);
                 break;
-            
+            case 'DELETE': 
+                const id = req.url.startsWith('/todos/').split('/').pop();
+                console.log(id);
+                // // todos.length = 0;
+                resFun(res, headers, 200);
+                break;
+
         }
-    }else{
-        res.writeHead(404, headers);
-        res.write(JSON.stringify({
-            "status": "false",
-            "massage": "無此網站路由"
-        }));
-        res.end();
+    } else {
+        resFun(res, headers, 404);
     }
-
-    // if (req.url === '/todos' && req.method === 'GET') {
-    //     res.writeHead(200, headers);
-    //     res.write(JSON.stringify({
-    //         "status": "success",
-    //         "data": todos
-    //     }));
-    //     res.end();
-    // } else if (req.method == "OPTIONS") {
-    //     res.writeHead(200, headers);
-    //     res.end();
-    // }else if (req.method == "POST") {
-    //     res.writeHead(200, headers);
-    //     res.end();
-    // }
-    // else {
-    //     res.writeHead(404, headers);
-    //     res.write(JSON.stringify({
-    //         "status": "false",
-    //         "massage": "無此網站路由"
-    //     }));
-    //     res.end();
-    // }
-
 }
 
-function resFun(res,headers){
-    res.writeHead(200, headers);
-    res.write(JSON.stringify({
-        "status": "success",
-        "data": todos
-    }));
+function resFun(res, headers, status) {
+    switch (status) {
+        case 200:
+            res.writeHead(200, headers);
+            res.write(JSON.stringify({
+                "status": "success",
+                "data": todos
+            }));
+            break;
+        case 404:
+            res.writeHead(404, headers);
+            res.write(JSON.stringify({
+                "status": "false",
+                "massage": "沒有此路由"
+            }));
+            break;
+
+    }
     res.end();
 }
 
