@@ -16,40 +16,65 @@ const requsetListener = (req, res) => {
     }
 
     let body = '';
-    req.on('data', chunk => {
+    // 取得body資料
+    req.on('data', chunk => { 
         body += chunk;
     })
-    console.log(req.url);
-    if (req.url === '/todos') {
-        switch (req.method) {
-            case 'OPTIONS':
-                res.writeHead(200, headers);
-                res.end();
-                break;
-            case 'GET':
+    /**preflight options API 檢查機制 */
+    if (req.method == 'OPTIONS') {
+        res.writeHead(200, headers);
+        res.end();
+    } else if (req.method == 'GET' && req.url === '/todos') {
+        resFun(res, headers, 200);
+    } else if (req.method == 'POST' && req.url === '/todos') {
+        // 確保取得body已結束後
+        req.on('end', () => {
+            try {
+                const title = JSON.parse(body).title;
+                if (!!title) {
+                    todos.push({
+                        "title": title,
+                        "id": uuidv4()
+                    });
+                    resFun(res, headers, 200);
+                } else {
+                    errorHandle(res);
+                }
+            } catch (error) {
+                errorHandle(res);
+            }
+        })
+    } else if (req.method == 'DELETE' && (req.url === '/todos' || req.url.startsWith('/todos/'))) {
+        if (req.url === '/todos') {
+            todos.length = 0; // 可直接將陣列資料全刪除
+            resFun(res, headers, 200);
+        } else if (req.url.startsWith('/todos/')) {
+            const index = getReqIndex(req.url);
+            if (index !== -1) {
+                todos.splice(index, 1); // 將資料刪除第 index索引的資料，1筆
                 resFun(res, headers, 200);
-                break;
-            case 'POST':
-                req.on('end', () => {
-                    try {
-                        todos.push({
-                            "title": JSON.parse(body).title,
-                            "id": uuidv4()
-                        });
+            } else {
+                resFun(res, headers, 404);
+            }
+        }
+    } else if (req.method == 'PATCH' && req.url.startsWith('/todos/')) {
+        const index = getReqIndex(req.url);
+        if (index !== -1) {
+            req.on('end', () => {
+                try {
+                    const title = JSON.parse(body).title;
+                    if (!!title) {
+                        todos[index].title = JSON.parse(body).title;
                         resFun(res, headers, 200);
-                    } catch (error) {
+                    } else {
                         errorHandle(res);
                     }
-
-                })
-                break;
-            case 'DELETE': 
-                const id = req.url.startsWith('/todos/').split('/').pop();
-                console.log(id);
-                // // todos.length = 0;
-                resFun(res, headers, 200);
-                break;
-
+                } catch (error) {
+                    errorHandle(res);
+                }
+            })
+        } else {
+            resFun(res, headers, 404);
         }
     } else {
         resFun(res, headers, 404);
@@ -72,9 +97,15 @@ function resFun(res, headers, status) {
                 "massage": "沒有此路由"
             }));
             break;
-
     }
     res.end();
+}
+
+function getReqIndex(url) {
+    // split 將 url 用 '/' 切成陣列 ex: /todos/123 => ['','todos','123']
+    // pop 將取得陣列最後一筆資料 根據上方例子會取得 '123'
+    const id = url.split('/').pop();
+    return todos.findIndex(ele => ele.id === id);
 }
 
 const server = http.createServer(requsetListener);
