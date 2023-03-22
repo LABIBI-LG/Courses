@@ -120,20 +120,53 @@
 
 /** fetch方式 網絡發送 HTTP 請求，並返回一個 Promise 物件*/
 //https://raw.githubusercontent.com/hexschool/2021-ui-frontend-job/master/frontend_data.json
-const url = 'https://raw.githubusercontent.com/hexschool/2021-ui-frontend-job/master/frontend_data.json';
-fetch(url)
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((err) => console.log(err))
-    
+// const url = 'https://raw.githubusercontent.com/hexschool/2021-ui-frontend-job/master/frontend_data.json';
+// fetch(url)
+//     .then((res) => res.json())
+//     .then((data) => console.log(data))
+//     .catch((err) => console.log(err))
+
 
 
 /** XMLHttpRequest 方式寫網絡發送 HTTP 請求*/
 //https://raw.githubusercontent.com/hexschool/2021-ui-frontend-job/master/frontend_data.json
+// const url = 'https://raw.githubusercontent.com/hexschool/2021-ui-frontend-job/master/frontend_data.json';
+// const xhr = new XMLHttpRequest();
+// xhr.open('GET', url);
+// xhr.onload = () => console.log(xhr.responseText);
+// xhr.onerror = () => console.log(xhr.responseText);
+// xhr.send();
 
 /** 用Promise改寫XMLHttpRequest */
 //https://raw.githubusercontent.com/hexschool/2021-ui-frontend-job/master/frontend_data.json
-
+// function init() {
+//     return new Promise((resolve, reject) => {
+//         const url = 'https://raw.githubusercontent.com/hexschool/2021-ui-frontend-job/master/frontend_data.json';
+//         const xhr = new XMLHttpRequest();
+//         xhr.open('GET', url);
+//         xhr.onload = () => resolve(xhr.responseText);
+//         xhr.onerror = () => reject(xhr.responseText);
+//         xhr.send();
+//     })
+// }
+// init()
+//     .then((res) => console.log(res))
+//     .catch((err) => console.log(err))
 
 /** 改成用 axios.get */
 //https://raw.githubusercontent.com/hexschool/2021-ui-frontend-job/master/frontend_data.json
+// const url = 'https://raw.githubusercontent.com/hexschool/2021-ui-frontend-job/master/frontend_data.json';
+// const axios = {
+//     get: function (url) {
+//         return new Promise((resolve, reject) => {
+//             const xhr = new XMLHttpRequest();
+//             xhr.open('GET', url);
+//             xhr.onload = () => resolve(xhr.responseText);
+//             xhr.onerror = () => reject(xhr.responseText);
+//             xhr.send();
+//         })
+//     }
+// }
+// axios.get(url)
+//     .then((res) => console.log(res))
+//     .catch((err) => console.log(err))
