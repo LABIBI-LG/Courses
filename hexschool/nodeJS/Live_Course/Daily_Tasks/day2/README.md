@@ -1,4 +1,6 @@
 # Day 2 - 非同步概念、使用 Promise
+> 2023/03/25 完成
+> [連結](main.js)
 ## 題目
 
 請嘗試使用 Promise 的鏈式寫法 `.then()` `.catch()` 執行以下函式<br>
