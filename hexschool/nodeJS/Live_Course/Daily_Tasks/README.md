@@ -4,7 +4,7 @@
 * 每日任務 Day2：[連結](day2)
 * 每日任務 Day3：[連結](day3)
 * 每日任務 Day4：[連結](day4)
-* 每日任務 Day5：非同步概念、async await
+* 每日任務 Day5：[連結](day5)
 ---
 * 每日任務 Day6：Mongoose、Schema
 * 每日任務 Day7：Model、Mongoose 新增／查詢
