@@ -6,7 +6,7 @@
 * 每日任務 Day4：[連結](day4)
 * 每日任務 Day5：[連結](day5)
 ---
-* 每日任務 Day6：Mongoose、Schema
+* 每日任務 Day6：[連結](day6)
 * 每日任務 Day7：Model、Mongoose 新增／查詢
 * 每日任務 Day8：Schema 補充
 * 每日任務 Day9：Mongoose 修改／刪除
