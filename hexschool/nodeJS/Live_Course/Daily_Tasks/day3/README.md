@@ -8,7 +8,7 @@ use day3
 建立`students` collection 並且新增一筆資料
 ```powershell
 db.students.insertOne(
-	{
+    {
         "studentName": "Riley Parker",
         "group": "A",
         "score": 83,
