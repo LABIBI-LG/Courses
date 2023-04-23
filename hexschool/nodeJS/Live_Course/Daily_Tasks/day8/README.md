@@ -1,4 +1,4 @@
-# Day 7 - Model、Mongoose 新增／查詢
+# Day 8 - Schema 補充
 > 2023/04/23 完成
 > [連結](main.js)
 ## 題目
