@@ -9,7 +9,7 @@
 * 每日任務 Day6：[連結](day6)
 * 每日任務 Day7：[連結](day7)
 * 每日任務 Day8：[連結](day8)
-* 每日任務 Day9：Mongoose 修改／刪除
+* 每日任務 Day9：[連結](day9)
 * 每日任務 Day10：拆分 Model
 ---
 * 每日任務 Day11：Express
