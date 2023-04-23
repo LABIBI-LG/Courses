@@ -2,7 +2,7 @@
 
 * 每日任務 Day1：[連結](day1)
 * 每日任務 Day2：[連結](day2)
-* 每日任務 Day3：MongoDB 基本操作：新增、查詢
+* 每日任務 Day3：[連結](day3)
 * 每日任務 Day4：MongoDB 基本操作：修改、刪除
 * 每日任務 Day5：非同步概念、async await
 ---
