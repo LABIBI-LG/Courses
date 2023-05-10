@@ -12,7 +12,7 @@
 - 個人牆
 - 個人追蹤名單
 範例
-```js
+```javascript
 app.get('/login', (req, res) => {
   res.send('歡迎來到登入頁')
 })
