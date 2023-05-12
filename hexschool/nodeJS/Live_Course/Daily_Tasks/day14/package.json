@@ -1,0 +1,15 @@
+{
+  "name": "day14",
+  "version": "1.0.0",
+  "description": "嘗試將此[檔案](https://drive.google.com/drive/folders/1oRjCzs3OajeUXVroNO6QS7fNomO1hwZ0)的 Model 拆分到 models 資料夾，並引入 server.js 做使用\r 並附上拆分後的 models 程式碼以及將 models 引入 server.js 的程式碼",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

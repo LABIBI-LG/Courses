@@ -15,7 +15,7 @@
 * 每日任務 Day11：[連結](day11)
 * 每日任務 Day12：[連結](day12)
 * 每日任務 Day13：[連結](day13)
-* 每日任務 Day14：req.query 篩選網址參數
+* 每日任務 Day14：[連結](day14)
 * 每日任務 Day15：req.body
 ---
 * 每日任務 Day16：req.params 取得特定資料
