@@ -14,7 +14,7 @@
 ---
 * 每日任務 Day11：[連結](day11)
 * 每日任務 Day12：[連結](day12)
-* 每日任務 Day13：Express 應用程式產生器（Express generater）、在 routes 設計路由
+* 每日任務 Day13：[連結](day13)
 * 每日任務 Day14：req.query 篩選網址參數
 * 每日任務 Day15：req.body
 ---
